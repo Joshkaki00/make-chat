@@ -2,8 +2,6 @@ $(document).ready(() => {
   const socket = io.connect();
   let currentUser;
   socket.emit('get online users');
-  // Join General channel by default
-  socket.emit('user changed channel', "General");
 
   // Click handler for switching channels
   $(document).on('click', '.channel', (e) => {
@@ -80,6 +78,9 @@ $(document).ready(() => {
       currentUser = username;
       // Emit custom "new user" event to server
       socket.emit('new user', { username: username });
+      
+      // Join General channel after user is set up
+      socket.emit('user changed channel', "General");
       
       // Hide form and show main chat interface
       $('.username-form').hide();
