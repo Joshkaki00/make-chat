@@ -168,22 +168,6 @@ $(document).ready(() => {
     });
   });
 
-  // Function to add message to chat
-  function addMessageToChat(username, message) {
-    const timestamp = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-    const messageElement = `
-      <div class="message">
-        <span class="username">${username}</span>
-        <span class="timestamp">${timestamp}</span>
-        <div class="text">${message}</div>
-      </div>
-    `;
-    $('.message-container').append(messageElement);
-    
-    // Scroll to bottom
-    $('.message-container').scrollTop($('.message-container')[0].scrollHeight);
-  }
-
   // Initially hide main container
   $('.main-container').hide();
 });
