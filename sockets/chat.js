@@ -20,6 +20,17 @@ module.exports = (io, socket, onlineUsers, channels) => {
   });
 };
 
+  // Listen for "new message" events from clients
+  socket.on('new message', (data) => {
+    // Save message to the specific channel
+    channels[data.channel].push({
+      sender: data.sender, 
+      message: data.message
+    });
+    // Send only to users in that channel room
+    io.to(data.channel).emit('new message', data);
+  });
+
   // Handle disconnect
   socket.on('disconnect', () => {
     if (socket.username) {
