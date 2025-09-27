@@ -16,6 +16,15 @@ $(document).ready(() => {
     // Add user to online users list (only if not current user)
     if (data.username !== currentUser) {
       addUserToOnlineList(data.username);
+      
+      // Add gaming-style join message
+      $('.message-container').append(`
+        <div class="message system-message">
+          <p class="message-user">🎮 SYSTEM</p>
+          <p class="message-text">⚡ ${data.username} has entered the game! ⚡</p>
+        </div>
+      `);
+      $('.message-container').scrollTop($('.message-container')[0].scrollHeight);
     }
   });
 
@@ -25,6 +34,15 @@ $(document).ready(() => {
     
     // Remove user from online users list
     removeUserFromOnlineList(data.username);
+    
+    // Add gaming-style leave message
+    $('.message-container').append(`
+      <div class="message system-message">
+        <p class="message-user">🎮 SYSTEM</p>
+        <p class="message-text">💀 ${data.username} has left the game! 💀</p>
+      </div>
+    `);
+    $('.message-container').scrollTop($('.message-container')[0].scrollHeight);
   });
 
   // Listen for complete online users list from server
