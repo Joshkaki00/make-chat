@@ -8,8 +8,8 @@ io.on("connection", (socket) => {
   console.log("🔌 New user connected! 🔌");
 });
 
-const exphbs = require('express-handlebars');
-app.engine('handlebars', exphbs());
+const { engine } = require('express-handlebars');
+app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
 // Serve static files from public folder
 app.use('/public', express.static('public'));
