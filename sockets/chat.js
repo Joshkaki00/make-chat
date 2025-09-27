@@ -5,6 +5,22 @@ module.exports = (io, socket, onlineUsers, channels) => {
   });
 
   // Listen for "new user" events from clients
+  socket.on('new user', (data) => {
+    console.log(`✋ ${data.username} has joined the chat! ✋`);
+    
+    // Store username in socket for later use
+    socket.username = data.username;
+    
+    // Add user to online users tracking
+    onlineUsers[data.username] = socket.id;
+    
+    // Send current online users list to the new user
+    socket.emit('online users', { users: Object.keys(onlineUsers) });
+    
+    // Broadcast to ALL clients that someone joined
+    io.emit("new user", { username: data.username });
+  });
+
   socket.on('new channel', (newChannel) => {
     // Create new channel with empty message array
     channels[newChannel] = [];
@@ -18,7 +34,6 @@ module.exports = (io, socket, onlineUsers, channels) => {
       messages: channels[newChannel]
     });
   });
-};
 
   // Listen for "new message" events from clients
   socket.on('new message', (data) => {
