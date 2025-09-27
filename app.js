@@ -4,12 +4,13 @@ const server = require('http').Server(app);
 
 // Socket.io integration
 const io = require('socket.io')(server);
-// Store online users as an object (username -> socket.id)
 let onlineUsers = {};
+// Store channels as object: channelName -> array of messages
+let channels = {"General": []};
 
 io.on("connection", (socket) => {
-  // Pass onlineUsers to chat handler
-  require('./sockets/chat.js')(io, socket, onlineUsers);
+  // Pass channels to chat handler
+  require('./sockets/chat.js')(io, socket, onlineUsers, channels);
 });
 
 const { engine } = require('express-handlebars');
