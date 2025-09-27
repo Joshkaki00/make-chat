@@ -40,6 +40,15 @@ $(document).ready(() => {
     }
   });
 
+  // Refresh online user list when someone leaves
+  socket.on('user has left', (onlineUsers) => {
+    $('.users-online').empty(); // Clear current list
+    // Rebuild list with remaining users
+    for(username in onlineUsers) {
+      $('.users-online').append(`<div class="user-online">${username}</div>`);
+    }
+  });
+
   // Function to add user to online users list
   function addUserToOnlineList(username) {
     const userElement = `
