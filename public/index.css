@@ -144,6 +144,8 @@ body.no-select {
 .channels {
   padding: 20px;
   border-bottom: 1px solid #522653;
+  min-width: 0; /* Allow section to shrink */
+  overflow: hidden; /* Prevent content from overflowing */
 }
 
 .channels-label {
@@ -158,16 +160,20 @@ body.no-select {
 .new-channel-form {
   display: flex;
   margin-bottom: 15px;
+  gap: 0;
+  width: 100%;
 }
 
 #new-channel-input {
   flex: 1;
+  min-width: 0; /* Allow input to shrink below its content width */
   padding: 8px;
   border: 1px solid #522653;
   border-radius: 4px 0 0 4px;
   background-color: #522653;
   color: #ffffff;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 #new-channel-input::placeholder {
@@ -189,6 +195,8 @@ body.no-select {
   cursor: pointer;
   font-size: 12px;
   font-weight: bold;
+  white-space: nowrap;
+  flex-shrink: 0; /* Prevent button from shrinking */
 }
 
 #new-channel-btn:hover {
@@ -202,12 +210,31 @@ body.no-select {
   border-radius: 4px;
   font-weight: 600;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.channel {
+  padding: 4px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.channel:hover {
+  background-color: #522653;
 }
 
 /* Users online section */
 .users-online-container {
   padding: 20px;
   flex: 1;
+  min-width: 0; /* Allow section to shrink */
+  overflow: hidden; /* Prevent content from overflowing */
 }
 
 .users-online-container h2 {
@@ -229,6 +256,18 @@ body.no-select {
   padding: 4px 0;
   color: #bcabbc;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-online {
+  padding: 4px 0;
+  color: #bcabbc;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .user-status {
@@ -237,6 +276,7 @@ body.no-select {
   border-radius: 50%;
   background-color: #007a5a;
   margin-right: 8px;
+  flex-shrink: 0; /* Prevent status indicator from shrinking */
 }
 
 /* Main chat area */
