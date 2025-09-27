@@ -101,11 +101,15 @@ $(document).ready(() => {
   // Handle send message button
   $('#send-chat-btn').click((e) => {
     e.preventDefault();
-    let message = $('#chat-input').val().trim();
+    let channel = $('.channel-current').text(); // Get current channel
+    let message = $('#chat-input').val();
     if(message.length > 0) {
-      // For now, just add message locally (will implement socket later)
-      addMessageToChat(currentUser, message);
-      $('#chat-input').val(''); // Clear input
+      socket.emit('new message', {
+        sender: currentUser,
+        message: message,
+        channel: channel // Include channel info
+      });
+      $('#chat-input').val("");
     }
   });
 
