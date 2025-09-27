@@ -20,6 +20,17 @@ $(document).ready(() => {
     removeUserFromOnlineList(data.username);
   });
 
+  // Listen for complete online users list from server
+  socket.on('online users', (data) => {
+    // Clear current users list and populate with all online users
+    $('.users-online').empty();
+    data.users.forEach(username => {
+      if (username !== currentUser) {
+        addUserToOnlineList(username);
+      }
+    });
+  });
+
   // Function to add user to online users list
   function addUserToOnlineList(username) {
     const userElement = `
