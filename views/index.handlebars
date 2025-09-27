@@ -12,7 +12,8 @@
   <body>
     <!-- Username form (initially visible) -->
     <form class="username-form">
-      <input id="username-input" placeholder="Username"></input>
+      <h1>Make Chat</h1>
+      <input id="username-input" placeholder="Enter your username"></input>
       <button id="create-user-btn">Join Chat</button>
     </form>
 
@@ -26,10 +27,12 @@
               <input id="new-channel-input" placeholder="New Channel" />
               <button id="new-channel-btn">Create</button>
             </div>
-            <div class="channel-current">General</div>
+            <div class="channel-current"># General</div>
         </div>
-        <h2>Online Users</h2>
-        <div class="users-online"></div>
+        <div class="users-online-container">
+          <h2>Online Users</h2>
+          <div class="users-online"></div>
+        </div>
       </div>
       <div class="chat-container">
         <div class="chat-container-fluid">
