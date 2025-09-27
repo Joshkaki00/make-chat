@@ -1,4 +1,9 @@
 module.exports = (io, socket, onlineUsers) => {
+  // Handle request for online users list
+  socket.on('get online users', () => {
+    socket.emit('online users', { users: Object.keys(onlineUsers) });
+  });
+
   // Listen for "new user" events from clients
   socket.on('new user', (data) => {
     console.log(`✋ ${data.username} has joined the chat! ✋`);

@@ -1,6 +1,8 @@
 $(document).ready(() => {
   const socket = io.connect();
-  let currentUser = '';
+  let currentUser;
+  // Request online users when connecting
+  socket.emit('get online users');
 
   // Listen for "new user" events from server
   socket.on('new user', (data) => {
