@@ -1,7 +1,7 @@
 module.exports = (io, socket, onlineUsers) => {
-  // Handle request for online users list
   socket.on('get online users', () => {
-    socket.emit('online users', { users: Object.keys(onlineUsers) });
+    // Send current online users to the requesting client
+    socket.emit('get online users', onlineUsers);
   });
 
   // Listen for "new user" events from clients
