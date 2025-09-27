@@ -33,6 +33,13 @@ $(document).ready(() => {
     });
   });
 
+  socket.on('get online users', (onlineUsers) => {
+    // Loop through all usernames in the object
+    for(username in onlineUsers) {
+      $('.users-online').append(`<div class="user-online">${username}</div>`);
+    }
+  });
+
   // Function to add user to online users list
   function addUserToOnlineList(username) {
     const userElement = `
