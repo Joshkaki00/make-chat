@@ -37,6 +37,10 @@ module.exports = (io, socket, onlineUsers, channels) => {
 
   // Listen for "new message" events from clients
   socket.on('new message', (data) => {
+    // Ensure channel exists, create if it doesn't
+    if (!channels[data.channel]) {
+      channels[data.channel] = [];
+    }
     // Save message to the specific channel
     channels[data.channel].push({
       sender: data.sender, 
@@ -48,6 +52,10 @@ module.exports = (io, socket, onlineUsers, channels) => {
 
   // Listen for "user changed channel" events from clients
   socket.on('user changed channel', (newChannel) => {
+    // Ensure channel exists, create if it doesn't
+    if (!channels[newChannel]) {
+      channels[newChannel] = [];
+    }
     // Join the room for that channel
     socket.join(newChannel);
     // Send channel data back to client
