@@ -5,7 +5,8 @@ const server = require('http').Server(app);
 // Socket.io integration
 const io = require('socket.io')(server);
 io.on("connection", (socket) => {
-  console.log("🔌 New user connected! 🔌");
+  // Pass both io (server) and socket (individual client) to our chat file
+  require('./sockets/chat.js')(io, socket);
 });
 
 const { engine } = require('express-handlebars');
