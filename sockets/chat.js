@@ -1,3 +1,8 @@
 module.exports = (io, socket) => {
-  // Future socket listeners will be here
+  // Listen for "new user" events from clients
+  socket.on('new user', (username) => {
+    console.log(`✋ ${username} has joined the chat! ✋`);
+    // Broadcast to ALL clients that someone joined
+    io.emit("new user", username);
+  });
 };
