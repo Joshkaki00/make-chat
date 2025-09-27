@@ -1,11 +1,18 @@
 const express = require('express');
 const app = express();
-const server = require('http').Server(app); // Important: Socket.io needs HTTP server
+const server = require('http').Server(app);
 
-// Handlebars template engine
+// Socket.io integration
+const io = require('socket.io')(server);
+io.on("connection", (socket) => {
+  console.log("🔌 New user connected! 🔌");
+});
+
 const exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
+// Serve static files from public folder
+app.use('/public', express.static('public'));
 
 app.get('/', (req, res) => {
   res.render('index.handlebars');
