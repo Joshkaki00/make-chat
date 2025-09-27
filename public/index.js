@@ -118,6 +118,31 @@ $(document).ready(() => {
     }
   });
 
+  // Add new channel to sidebar (all clients see this)
+  socket.on('new channel', (newChannel) => {
+    $('.channels').append(`<div class="channel">${newChannel}</div>`);
+  });
+
+  // Switch to new channel (only creator sees this initially)
+  socket.on('user changed channel', (data) => {
+    // Update current channel styling
+    $('.channel-current').addClass('channel');
+    $('.channel-current').removeClass('channel-current');
+    $(`.channel:contains('${data.channel}')`).addClass('channel-current');
+    $('.channel-current').removeClass('channel');
+    
+    // Clear messages and load channel messages
+    $('.message').remove();
+    data.messages.forEach((message) => {
+      $('.message-container').append(`
+        <div class="message">
+          <p class="message-user">${message.sender}: </p>
+          <p class="message-text">${message.message}</p>
+        </div>
+      `);
+    });
+  });
+
   // Function to add message to chat
   function addMessageToChat(username, message) {
     const timestamp = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
