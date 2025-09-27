@@ -109,6 +109,15 @@ $(document).ready(() => {
     }
   });
 
+  // Handle new channel button
+  $('#new-channel-btn').click(() => {
+    let newChannel = $('#new-channel-input').val();
+    if(newChannel.length > 0) {
+      socket.emit('new channel', newChannel);
+      $('#new-channel-input').val("");
+    }
+  });
+
   // Function to add message to chat
   function addMessageToChat(username, message) {
     const timestamp = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
