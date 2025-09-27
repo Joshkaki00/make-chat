@@ -31,6 +31,17 @@ module.exports = (io, socket, onlineUsers, channels) => {
     io.to(data.channel).emit('new message', data);
   });
 
+  // Listen for "user changed channel" events from clients
+  socket.on('user changed channel', (newChannel) => {
+    // Join the room for that channel
+    socket.join(newChannel);
+    // Send channel data back to client
+    socket.emit('user changed channel', {
+      channel: newChannel,
+      messages: channels[newChannel]
+    });
+  });
+
   // Handle disconnect
   socket.on('disconnect', () => {
     if (socket.username) {
