@@ -9,5 +9,9 @@ $(document).ready(() => {
       socket.emit('new user', username);
       $('.username-form').remove(); // Hide form after joining
     }
+    // Listen for "new user" events from server
+    socket.on('new user', (username) => {
+      console.log(`✋ ${username} has joined the chat! ✋`);
+    });
   });
 });
