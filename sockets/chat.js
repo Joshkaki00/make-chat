@@ -14,6 +14,9 @@ module.exports = (io, socket, onlineUsers, channels) => {
     // Add user to online users tracking
     onlineUsers[data.username] = socket.id;
     
+    // Automatically join the General channel
+    socket.join("General");
+    
     // Send current online users list to the new user
     socket.emit('online users', { users: Object.keys(onlineUsers) });
     
@@ -56,8 +59,17 @@ module.exports = (io, socket, onlineUsers, channels) => {
     if (!channels[newChannel]) {
       channels[newChannel] = [];
     }
-    // Join the room for that channel
+    
+    // Leave all previous rooms (except the default socket room)
+    Object.keys(socket.rooms).forEach(room => {
+      if (room !== socket.id) {
+        socket.leave(room);
+      }
+    });
+    
+    // Join the room for the new channel
     socket.join(newChannel);
+    
     // Send channel data back to client
     socket.emit('user changed channel', {
       channel: newChannel,
