@@ -51,7 +51,7 @@ $(document).ready(() => {
   socket.on('user has left', (onlineUsers) => {
     $('.users-online').empty(); // Clear current list
     // Rebuild list with remaining users
-    for(username in onlineUsers) {
+    for(let username in onlineUsers) {
       $('.users-online').append(`<div class="user-online">${username}</div>`);
     }
   });
