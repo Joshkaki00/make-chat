@@ -1,8 +1,15 @@
 $(document).ready(() => {
   const socket = io.connect();
   let currentUser;
-  // Request online users when connecting
   socket.emit('get online users');
+  // Join General channel by default
+  socket.emit('user changed channel', "General");
+
+  // Click handler for switching channels
+  $(document).on('click', '.channel', (e) => {
+    let newChannel = e.target.textContent;
+    socket.emit('user changed channel', newChannel);
+  });
 
   // Listen for "new user" events from server
   socket.on('new user', (data) => {
