@@ -113,6 +113,20 @@ $(document).ready(() => {
     }
   });
 
+  // Handle new message (all clients see this)
+  socket.on('new message', (data) => {
+    // Only show message if user is in that channel
+    let currentChannel = $('.channel-current').text();
+    if(currentChannel == data.channel) {
+      $('.message-container').append(`
+        <div class="message">
+          <p class="message-user">${data.sender}: </p>
+          <p class="message-text">${data.message}</p>
+        </div>
+      `);
+    }
+  });
+
   // Handle new channel button
   $('#new-channel-btn').click(() => {
     let newChannel = $('#new-channel-input').val();
