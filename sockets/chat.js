@@ -49,8 +49,8 @@ module.exports = (io, socket, onlineUsers, channels) => {
       sender: data.sender, 
       message: data.message
     });
-    // Send only to users in that channel room
-    io.to(data.channel).emit('new message', data);
+    // Send to ALL users in that channel room (including sender)
+    io.in(data.channel).emit('new message', data);
   });
 
   // Listen for "user changed channel" events from clients

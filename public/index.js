@@ -132,6 +132,9 @@ $(document).ready(() => {
           <p class="message-text">${data.message}</p>
         </div>
       `);
+      
+      // Auto-scroll to bottom
+      $('.message-container').scrollTop($('.message-container')[0].scrollHeight);
     }
   });
 
@@ -167,6 +170,9 @@ $(document).ready(() => {
         </div>
       `);
     });
+    
+    // Auto-scroll to bottom
+    $('.message-container').scrollTop($('.message-container')[0].scrollHeight);
   });
 
   // Initially hide main container
