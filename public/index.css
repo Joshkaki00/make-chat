@@ -12,6 +12,13 @@ body {
   overflow: hidden;
 }
 
+body.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
 /* Username form - initial login */
 .username-form {
   position: fixed;
@@ -78,11 +85,50 @@ body {
 /* Sidebar navigation */
 .channels-and-users-online-container {
   width: 260px;
+  min-width: 200px;
+  max-width: 500px;
   background-color: #3f0e40;
   color: #ffffff;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #522653;
+  position: relative;
+}
+
+/* Resize handle */
+.resize-handle {
+  width: 4px;
+  background-color: transparent;
+  cursor: col-resize;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.resize-handle:hover {
+  background-color: #1264a3;
+}
+
+.resize-handle:active {
+  background-color: #0d4f8c;
+}
+
+/* Visual indicator for resize handle */
+.resize-handle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2px;
+  height: 40px;
+  background-color: #d1d9dd;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  border-radius: 1px;
+}
+
+.resize-handle:hover::after {
+  opacity: 0.6;
 }
 
 .brand {
@@ -352,13 +398,19 @@ body {
   }
   
   .channels-and-users-online-container {
-    width: 100%;
+    width: 100% !important;
     height: 60px;
     flex-direction: row;
     position: fixed;
     bottom: 0;
     z-index: 100;
     overflow-x: auto;
+    min-width: unset !important;
+    max-width: unset !important;
+  }
+  
+  .resize-handle {
+    display: none;
   }
   
   .brand {

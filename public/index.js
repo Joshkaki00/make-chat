@@ -195,4 +195,48 @@ $(document).ready(() => {
 
   // Initially hide main container
   $('.main-container').hide();
+
+  // Sidebar resizing functionality
+  let isResizing = false;
+  let startX = 0;
+  let startWidth = 0;
+
+  $('#resize-handle').mousedown((e) => {
+    isResizing = true;
+    startX = e.clientX;
+    startWidth = $('#sidebar').width();
+    
+    // Prevent text selection during resize
+    $('body').addClass('no-select');
+    e.preventDefault();
+  });
+
+  $(document).mousemove((e) => {
+    if (!isResizing) return;
+    
+    const width = startWidth + (e.clientX - startX);
+    const minWidth = 200;
+    const maxWidth = 500;
+    
+    // Constrain width within bounds
+    const constrainedWidth = Math.max(minWidth, Math.min(maxWidth, width));
+    
+    $('#sidebar').width(constrainedWidth);
+  });
+
+  $(document).mouseup(() => {
+    if (isResizing) {
+      isResizing = false;
+      $('body').removeClass('no-select');
+      
+      // Save the width to localStorage for persistence
+      localStorage.setItem('sidebarWidth', $('#sidebar').width());
+    }
+  });
+
+  // Load saved sidebar width on page load
+  const savedWidth = localStorage.getItem('sidebarWidth');
+  if (savedWidth) {
+    $('#sidebar').width(parseInt(savedWidth));
+  }
 });
