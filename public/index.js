@@ -17,11 +17,11 @@ $(document).ready(() => {
     if (data.username !== currentUser) {
       addUserToOnlineList(data.username);
       
-      // Add gaming-style join message
+      // Add join message
       $('.message-container').append(`
         <div class="message system-message">
-          <p class="message-user">🎮 SYSTEM</p>
-          <p class="message-text">⚡ ${data.username} has entered the game! ⚡</p>
+          <p class="message-user">System</p>
+          <p class="message-text">${data.username} joined the channel</p>
         </div>
       `);
       $('.message-container').scrollTop($('.message-container')[0].scrollHeight);
@@ -35,11 +35,11 @@ $(document).ready(() => {
     // Remove user from online users list
     removeUserFromOnlineList(data.username);
     
-    // Add gaming-style leave message
+    // Add leave message
     $('.message-container').append(`
       <div class="message system-message">
-        <p class="message-user">🎮 SYSTEM</p>
-        <p class="message-text">💀 ${data.username} has left the game! 💀</p>
+        <p class="message-user">System</p>
+        <p class="message-text">${data.username} left the channel</p>
       </div>
     `);
     $('.message-container').scrollTop($('.message-container')[0].scrollHeight);
